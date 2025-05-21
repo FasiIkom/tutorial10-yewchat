@@ -31,6 +31,12 @@ pub enum Route {
     NotFound,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Theme {
+    Light,
+    Dark,
+}
+
 fn switch(selected_route: &Route) -> Html {
     match selected_route {
         Route::Login => html! {<Login />},
@@ -44,6 +50,7 @@ fn app() -> Html {
     let ctx = use_state(|| {
         Rc::new(UserInner {
             username: RefCell::new("initial".into()),
+            theme: RefCell::new(Theme::Light),
         })
     });
 
@@ -70,4 +77,5 @@ pub type User = Rc<UserInner>;
 #[derive(Debug, PartialEq)]
 pub struct UserInner {
     pub username: RefCell<String>,
+    pub theme: RefCell<Theme>,
 }
